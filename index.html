@@ -5,6 +5,7 @@
   <title>Who Will Win the World Cup Matches? | TrumpPredicts</title>
   <meta name="description" content="Ask Trump to predict who will win each World Cup match using stats, form, injuries and very strong opinions." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
     body {
       margin: 0;
@@ -13,19 +14,23 @@
       color: #ffffff;
       text-align: center;
     }
+
     .container {
       max-width: 800px;
       margin: 0 auto;
-      padding: 80px 20px;
+      padding: 60px 20px;
     }
+
     h1 {
       font-size: 3rem;
       margin-bottom: 20px;
     }
+
     p {
       color: #b0b0b0;
       line-height: 1.6;
     }
+
     .cta {
       display: inline-block;
       margin: 30px 0;
@@ -36,26 +41,84 @@
       font-size: 1.2rem;
       font-weight: bold;
       border-radius: 6px;
+      cursor: pointer;
     }
+
     .disclaimer {
       margin-top: 60px;
       font-size: 0.85rem;
       color: #777;
     }
+
+    /* Character */
+    .character img {
+      width: 280px;
+      margin-bottom: 20px;
+    }
+
+    .talking {
+      animation: talk 0.15s infinite;
+    }
+
+    @keyframes talk {
+      0% { transform: scaleY(1); }
+      50% { transform: scaleY(0.96); }
+      100% { transform: scaleY(1); }
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <h1>Who Will Win the World Cup Matches?<br/>Ask Trump.</h1>
-    <p>A satirical AI predicts every match using stats, form, injuries — and very strong opinions.</p>
 
-    <a class="cta" href="#">🔴 Ask Trump Who Wins Today</a>
+    <div class="character">
+      <img id="trumpFace" src="/images/trumpom.png" alt="Cartoon parody predictor">
+    </div>
+
+    <h1>Who Will Win the World Cup Matches?<br/>Ask Trump.</h1>
+
+    <p>
+      A satirical AI predicts every match using stats, form, injuries —
+      and very strong opinions.
+    </p>
+
+    <button class="cta" onclick="speakPrediction()">🔊 Ask Trump Who Wins</button>
 
     <p><em>Parody AI prediction for entertainment purposes only.</em></p>
 
     <div class="disclaimer">
-      TrumpPredicts.com is a satirical parody website and is not affiliated with Donald J. Trump or any political organization.
+      TrumpPredicts.com is a satirical parody website and is not affiliated
+      with Donald J. Trump or any political organization.
     </div>
+
   </div>
+
+  <script>
+    function speakPrediction() {
+      const text = `
+        Big game. Very big.
+        Mexico has tremendous energy.
+        South Africa? Fast. Exciting. But mistakes.
+        I think Mexico wins. Probably comfortably.
+      `;
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      utterance.pitch = 0.9;
+
+      const face = document.getElementById("trumpFace");
+
+      utterance.onstart = () => {
+        face.classList.add("talking");
+      };
+
+      utterance.onend = () => {
+        face.classList.remove("talking");
+      };
+
+      speechSynthesis.cancel(); // stops overlapping speech
+      speechSynthesis.speak(utterance);
+    }
+  </script>
 </body>
 </html>
